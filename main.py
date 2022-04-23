@@ -197,11 +197,7 @@ def filtradoDeLetrasInexistentes(diccionarioParam, indiceCasiCorrectas, indiceCo
             if palabra[i] not in letrascorrectas and palabra[i] not in letrascasicorrectas:
                 if palabra[i] in dicFilter[u]:
                     dicFilter.pop(u)
-
-
     return dicFilter
-
-
 def indiceDeGris(columna):
     claseGris = '[contains(@class, "css-1hwd5vh")]'
     indiceGris = []
@@ -212,8 +208,6 @@ def indiceDeGris(columna):
         except NoSuchElementException:
             -1
     return indiceGris
-
-
 def indiceDeAmarilla(columna):
     claseAmarilla = '[contains(@class, "css-140kyip")]'
     contador = 0
@@ -225,8 +219,6 @@ def indiceDeAmarilla(columna):
         except NoSuchElementException:
             -1
     return indiceAmarillo
-
-
 def indiceDeCorrectas(columna):
     claseVerde = '[contains(@class, "css-1jtxyvl")]'
     indiceDeVerde = []
@@ -238,8 +230,6 @@ def indiceDeCorrectas(columna):
         except NoSuchElementException:
             -1
     return indiceDeVerde
-
-
 def filtradoDePosicion(palabra, posicionesCorrectas, diccionarioParam):
     dicFiltrando = diccionarioParam
     for i in sorted(range(len(dicFiltrando)), reverse=True):
@@ -251,11 +241,8 @@ def filtradoDePosicion(palabra, posicionesCorrectas, diccionarioParam):
                 -1
 
     return dicFiltrando
-
-
 def filtradoDeExistencia(palabra, posicionesCorrectas, diccionarioParam):
     dicFiltrando = diccionarioParam
-
     # No contienen la letra
     for x in sorted(range(len(dicFiltrando)), reverse=True):
         for u in posicionesCorrectas:
@@ -274,8 +261,6 @@ def filtradoDeExistencia(palabra, posicionesCorrectas, diccionarioParam):
                 -1
 
     return dicFiltrando
-
-
 def ia():
     # Declaracion de variables
     firstWord = ['Secan', 'Secar', 'Sedal', 'Sedar', 'Laser', 'Renal', 'Nacer', 'Naden', 'Cesar', 'Cenar', 'Celar',
@@ -338,5 +323,8 @@ def ia():
 
 try:
     ia()
+    Author = 'Naim Cheddi'
+    driver.quit()
 except IndexError:
     print('No hay mas columnas por tanto ha ganado')
+    driver.quit()
