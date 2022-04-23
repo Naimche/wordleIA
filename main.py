@@ -1,3 +1,4 @@
+import random
 import time
 
 from selenium import webdriver
@@ -164,19 +165,53 @@ def analisisYescritura(palabra):
     enviarClick.click()
 
 
-def filtradoDeLetrasInexistentes(diccionarioParam):
+def filtradoDeLetrasInexistentes(diccionarioParam, indiceCasiCorrectas, indiceCorrectas, palabra, indiceIncorrectas):
     letrasIncorrectas = driver.find_elements(By.CLASS_NAME, 'css-1hwd5vh')
+    dicFilter = diccionarioParam
     listaIncorrectas = []
+    letrascorrectas = []
+    letrascasicorrectas = []
     for i in range(len(letrasIncorrectas)):
         listaIncorrectas.append(letrasIncorrectas[i].text)
 
-    dicFiltrando = diccionarioParam
-    for i in range(len(listaIncorrectas)):
-        for u in sorted(range(len(dicFiltrando)), reverse=True):
-            if listaIncorrectas[i] in dicFiltrando[u]:
-                dicFiltrando.pop(u)
+    for i in indiceCorrectas:
+        letrascorrectas.append(palabra[i])
 
-    return dicFiltrando
+    for i in indiceCasiCorrectas:
+        letrascasicorrectas.append(palabra[i])
+
+    # Caso 2 Existe en indicesCorrectas pero no existen mas
+    for u in indiceCorrectas:
+        if palabra[u] in listaIncorrectas:
+            for y in sorted(range(len(dicFilter)), reverse=True):
+                for x in dicFilter[y]:
+                    for p in indiceIncorrectas:
+                        try:
+                            if palabra[u] == dicFilter[y][u] and palabra[u] == dicFilter[y][p]:
+                                dicFilter.pop(y)
+                        except IndexError:
+                            -1
+    # Caso 1 No existe totalmente
+    for i in indiceIncorrectas:
+        for u in sorted(range(len(dicFilter)), reverse=True):
+            if palabra[i] not in letrascorrectas and palabra[i] not in letrascasicorrectas:
+                if palabra[i] in dicFilter[u]:
+                    dicFilter.pop(u)
+
+
+    return dicFilter
+
+
+def indiceDeGris(columna):
+    claseGris = '[contains(@class, "css-1hwd5vh")]'
+    indiceGris = []
+    for i in range(5):
+        try:
+            driver.find_element(By.XPATH, columna[i] + claseGris)
+            indiceGris.append(i)
+        except NoSuchElementException:
+            -1
+    return indiceGris
 
 
 def indiceDeAmarilla(columna):
@@ -209,8 +244,11 @@ def filtradoDePosicion(palabra, posicionesCorrectas, diccionarioParam):
     dicFiltrando = diccionarioParam
     for i in sorted(range(len(dicFiltrando)), reverse=True):
         for u in posicionesCorrectas:
-            if palabra[u].upper() != dicFiltrando[i][u]:
-                dicFiltrando.pop(i)
+            try:
+                if palabra[u].upper() != dicFiltrando[i][u]:
+                    dicFiltrando.pop(i)
+            except IndexError:
+                -1
 
     return dicFiltrando
 
@@ -222,69 +260,83 @@ def filtradoDeExistencia(palabra, posicionesCorrectas, diccionarioParam):
     for x in sorted(range(len(dicFiltrando)), reverse=True):
         for u in posicionesCorrectas:
             try:
-             if palabra[u] not in dicFiltrando[x]:
+                if palabra[u] not in dicFiltrando[x]:
                     dicFiltrando.pop(x)
             except IndexError:
                 -1
 
     for i in sorted(range(len(dicFiltrando)), reverse=True):
         for u in posicionesCorrectas:
-            if palabra[u] == dicFiltrando[i][u]:
-                dicFiltrando.pop(i)
+            try:
+                if palabra[u] == dicFiltrando[i][u]:
+                    dicFiltrando.pop(i)
+            except IndexError:
+                -1
 
     return dicFiltrando
 
 
 def ia():
     # Declaracion de variables
-    filter1 = 'AIREO'
+    firstWord = ['Secan', 'Secar', 'Sedal', 'Sedar', 'Laser', 'Renal', 'Nacer', 'Naden', 'Cesar', 'Cenar', 'Celar',
+                 'Celas', 'Cenas', 'Canes']
+    random.shuffle(firstWord)
+    filter1 = firstWord[0].upper()
     analisisYescritura(filter1)
 
     # primera columna
-    print(indiceDeCorrectas(columna1))
-    print(indiceDeAmarilla(columna1))
-    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic)
+
+    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna1), indiceDeCorrectas(columna1),
+                                                          filter1, indiceDeGris(columna1))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna1), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna1), diccionarioFilter1)
-
+    random.shuffle(diccionarioFilter1)
     # SegundaColumna
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
-    print(indiceDeCorrectas(columna2))
-    print(indiceDeAmarilla(columna2))
-    diccionarioFilter1 = filtradoDeLetrasInexistentes(diccionarioFilter1)
+    diccionarioFilter1.pop(0)
+    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna2), indiceDeCorrectas(columna2),
+                                                      filter1, indiceDeGris(columna2))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna2), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna2), diccionarioFilter1)
+    random.shuffle(diccionarioFilter1)
 
     # terceraColumna
 
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
-    print(indiceDeCorrectas(columna3))
-    print(indiceDeAmarilla(columna3))
-    diccionarioFilter1 = filtradoDeLetrasInexistentes(diccionarioFilter1)
+    diccionarioFilter1.pop(0)
+    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna3), indiceDeCorrectas(columna3),
+                                                      filter1,indiceDeGris(columna3))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna3), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna3), diccionarioFilter1)
+    random.shuffle(diccionarioFilter1)
 
     # CuartaColumna
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
-    print(indiceDeCorrectas(columna4))
-    print(indiceDeAmarilla(columna4))
-    diccionarioFilter1 = filtradoDeLetrasInexistentes(diccionarioFilter1)
+    diccionarioFilter1.pop(0)
+    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna4), indiceDeCorrectas(columna4),
+                                                      filter1,indiceDeGris(columna4))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna4), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna4), diccionarioFilter1)
+    random.shuffle(diccionarioFilter1)
+
     # Columna 5
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
-    print(indiceDeCorrectas(columna5))
-    print(indiceDeAmarilla(columna5))
-    diccionarioFilter1 = filtradoDeLetrasInexistentes(diccionarioFilter1)
+    diccionarioFilter1.pop(0)
+    diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna5), indiceDeCorrectas(columna5),
+                                                      filter1,indiceDeGris(columna5))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna5), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna5), diccionarioFilter1)
+    random.shuffle(diccionarioFilter1)
 
     # Sexta Columna
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
 
-ia()
+try:
+    ia()
+except IndexError:
+    print('No hay mas columnas por tanto ha ganado')
