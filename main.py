@@ -18,13 +18,16 @@ listadic = diccionariosinformat.split(' ')
 # Entrando en wordle.com
 driver = webdriver.Chrome()
 
-driver.get('https://wordle.danielfrg.com/')
+driver.get('https://wordle.danielfrg.com')
 
 time.sleep(0.4)
 
 # Acepto Cookies
-driver.find_element(By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]').click()
+# driver.find_element(By.XPATH, '//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]').click()
+# driver.find_element(By.XPATH, '//*[@id="qc-cmp2-ui"]/div[3]/div[2]/button').click()
 driver.find_element(By.XPATH, '//*[@id="chakra-modal--body-1"]/div[8]/button').click()
+# driver.find_element(By.XPATH, '//*[@id="chakra-modal--body-4"]/div[8]/button').click()
+# prueba
 
 # Teclado a Variables
 
@@ -56,6 +59,7 @@ xClick = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[3]/div/div[3]/
 yClick = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[3]/div/div[1]/button[6]')
 zClick = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[3]/div/div[3]/button[2]')
 enviarClick = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[3]/div/div[3]/button[1]')
+borrarClick = driver.find_element(By.XPATH, '//*[@id="__next"]/div/div[3]/div/div[3]/button[9]')
 
 # Variables Del Cuadrado
 primer1 = '//*[@id="__next"]/div/div[2]/div/div[1]/div[1]/div/div[2]/div'
@@ -104,76 +108,88 @@ columna6 = [sexta1, sexta2, sexta3, sexta4, sexta5]
 # funcion que analiza la palabra y la escribe en wordle
 
 def analisisYescritura(palabra):
-    listapalabra = list(palabra)
+    if len(palabra) == 5:
+        listapalabra = list(palabra)
 
-    for i in range(len(listapalabra)):
-        time.sleep(0.20)
-        if 'A' == listapalabra[i]:
-            aClick.click()
-        elif 'B' == listapalabra[i]:
-            bClick.click()
-        elif 'C' == listapalabra[i]:
-            cClick.click()
-        elif 'D' == listapalabra[i]:
-            dClick.click()
-        elif 'E' == listapalabra[i]:
-            eClick.click()
-        elif 'F' == listapalabra[i]:
-            fClick.click()
-        elif 'G' == listapalabra[i]:
-            gClick.click()
-        elif 'H' == listapalabra[i]:
-            hClick.click()
-        elif 'I' == listapalabra[i]:
-            iClick.click()
-        elif 'J' == listapalabra[i]:
-            jClick.click()
-        elif 'K' == listapalabra[i]:
-            kClick.click()
-        elif 'L' == listapalabra[i]:
-            lClick.click()
-        elif 'M' == listapalabra[i]:
-            mClick.click()
-        elif 'N' == listapalabra[i]:
-            nClick.click()
-        elif 'Ñ' == listapalabra[i]:
-            enieClick.click()
-        elif 'O' == listapalabra[i]:
-            oClick.click()
-        elif 'P' == listapalabra[i]:
-            pClick.click()
-        elif 'Q' == listapalabra[i]:
-            qClick.click()
-        elif 'R' == listapalabra[i]:
-            rClick.click()
-        elif 'S' == listapalabra[i]:
-            sClick.click()
-        elif 'T' == listapalabra[i]:
-            tClick.click()
-        elif 'U' == listapalabra[i]:
-            uClick.click()
-        elif 'V' == listapalabra[i]:
-            vClick.click()
-        elif 'W' == listapalabra[i]:
-            wClick.click()
-        elif 'X' == listapalabra[i]:
-            xClick.click()
-        elif 'Y' == listapalabra[i]:
-            yClick.click()
-        elif 'Z' == listapalabra[i]:
-            zClick.click()
-    enviarClick.click()
+        for i in range(len(listapalabra)):
+            time.sleep(0.20)
+            if 'A' == listapalabra[i]:
+                aClick.click()
+            elif 'B' == listapalabra[i]:
+                bClick.click()
+            elif 'C' == listapalabra[i]:
+                cClick.click()
+            elif 'D' == listapalabra[i]:
+                dClick.click()
+            elif 'E' == listapalabra[i]:
+                eClick.click()
+            elif 'F' == listapalabra[i]:
+                fClick.click()
+            elif 'G' == listapalabra[i]:
+                gClick.click()
+            elif 'H' == listapalabra[i]:
+                hClick.click()
+            elif 'I' == listapalabra[i]:
+                iClick.click()
+            elif 'J' == listapalabra[i]:
+                jClick.click()
+            elif 'K' == listapalabra[i]:
+                kClick.click()
+            elif 'L' == listapalabra[i]:
+                lClick.click()
+            elif 'M' == listapalabra[i]:
+                mClick.click()
+            elif 'N' == listapalabra[i]:
+                nClick.click()
+            elif 'Ñ' == listapalabra[i]:
+                enieClick.click()
+            elif 'O' == listapalabra[i]:
+                oClick.click()
+            elif 'P' == listapalabra[i]:
+                pClick.click()
+            elif 'Q' == listapalabra[i]:
+                qClick.click()
+            elif 'R' == listapalabra[i]:
+                rClick.click()
+            elif 'S' == listapalabra[i]:
+                sClick.click()
+            elif 'T' == listapalabra[i]:
+                tClick.click()
+            elif 'U' == listapalabra[i]:
+                uClick.click()
+            elif 'V' == listapalabra[i]:
+                vClick.click()
+            elif 'W' == listapalabra[i]:
+                wClick.click()
+            elif 'X' == listapalabra[i]:
+                xClick.click()
+            elif 'Y' == listapalabra[i]:
+                yClick.click()
+            elif 'Z' == listapalabra[i]:
+                zClick.click()
+        enviarClick.click()
+        return True
+    else:
+        eClick.click()
+        rClick.click()
+        rClick.click()
+        oClick.click()
+        rClick.click()
+        enviarClick.click()
+        return False
 
 
 def filtradoDeLetrasInexistentes(diccionarioParam, indiceCasiCorrectas, indiceCorrectas, palabra, indiceIncorrectas):
-    letrasIncorrectas = driver.find_elements(By.CLASS_NAME, 'css-1hwd5vh')
+    letrasIncorrectas = driver.find_elements(By.CLASS_NAME, 'css-out8pn')
     dicFilter = diccionarioParam
     listaIncorrectas = []
     letrascorrectas = []
     letrascasicorrectas = []
+    print(letrasIncorrectas[0].text)
     for i in range(len(letrasIncorrectas)):
         listaIncorrectas.append(letrasIncorrectas[i].text)
 
+    print(listaIncorrectas)
     for i in indiceCorrectas:
         letrascorrectas.append(palabra[i])
 
@@ -198,8 +214,10 @@ def filtradoDeLetrasInexistentes(diccionarioParam, indiceCasiCorrectas, indiceCo
                 if palabra[i] in dicFilter[u]:
                     dicFilter.pop(u)
     return dicFilter
+
+
 def indiceDeGris(columna):
-    claseGris = '[contains(@class, "css-1hwd5vh")]'
+    claseGris = '[contains(@class, "css-out8pn")]'
     indiceGris = []
     for i in range(5):
         try:
@@ -208,8 +226,10 @@ def indiceDeGris(columna):
         except NoSuchElementException:
             -1
     return indiceGris
+
+
 def indiceDeAmarilla(columna):
-    claseAmarilla = '[contains(@class, "css-140kyip")]'
+    claseAmarilla = '[contains(@class, "css-ecal1")]'
     contador = 0
     indiceAmarillo = []
     for i in range(5):
@@ -219,8 +239,10 @@ def indiceDeAmarilla(columna):
         except NoSuchElementException:
             -1
     return indiceAmarillo
+
+
 def indiceDeCorrectas(columna):
-    claseVerde = '[contains(@class, "css-1jtxyvl")]'
+    claseVerde = "[contains(@class, 'css-1cluu6v')]"
     indiceDeVerde = []
 
     for i in range(5):
@@ -230,6 +252,8 @@ def indiceDeCorrectas(columna):
         except NoSuchElementException:
             -1
     return indiceDeVerde
+
+
 def filtradoDePosicion(palabra, posicionesCorrectas, diccionarioParam):
     dicFiltrando = diccionarioParam
     for i in sorted(range(len(dicFiltrando)), reverse=True):
@@ -241,6 +265,8 @@ def filtradoDePosicion(palabra, posicionesCorrectas, diccionarioParam):
                 -1
 
     return dicFiltrando
+
+
 def filtradoDeExistencia(palabra, posicionesCorrectas, diccionarioParam):
     dicFiltrando = diccionarioParam
     # No contienen la letra
@@ -261,25 +287,42 @@ def filtradoDeExistencia(palabra, posicionesCorrectas, diccionarioParam):
                 -1
 
     return dicFiltrando
+
+
+def existeLaPalabra(columna):
+    claseBlanca = '[contains(@class, "css-17ghkrc")]'
+    indiceDeBlanco = False
+    for i in range(5):
+        try:
+            driver.find_element(By.XPATH, columna[i] + claseBlanca)
+            indiceDeBlanco = True
+        except NoSuchElementException:
+            -1
+    return indiceDeBlanco
+
+
+
+
 def ia():
-    # Declaracion de variables
-    firstWord = ['Secan', 'Secar', 'Sedal', 'Sedar', 'Laser', 'Renal', 'Nacer', 'Naden', 'Cesar', 'Cenar', 'Celar',
-                 'Celas', 'Cenas', 'Canes']
+    firstWord = ['Adose', 'Acero', 'Canes', 'Cases', 'Calor', 'Cesar', 'Cenar', 'Celar', 'Celas', 'Cenas', 'Nacer',
+                 'Naden', 'Laser', 'Renal', 'Salen', 'Secan', 'Secar', 'Sedal', 'Sedar', 'Oreas', 'Idean', 'Cinto',
+                 'Listo', 'Trine']
     random.shuffle(firstWord)
     filter1 = firstWord[0].upper()
-    analisisYescritura(filter1)
+    # Declaracion de variables
 
     # primera columna
-
+    analisisYescritura(filter1)
     diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna1), indiceDeCorrectas(columna1),
-                                                          filter1, indiceDeGris(columna1))
+                                                      filter1, indiceDeGris(columna1))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna1), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna1), diccionarioFilter1)
     random.shuffle(diccionarioFilter1)
-    # SegundaColumna
     filter1 = diccionarioFilter1[0]
+
+    # SegundaColumna
+
     analisisYescritura(filter1)
-    diccionarioFilter1.pop(0)
     diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna2), indiceDeCorrectas(columna2),
                                                       filter1, indiceDeGris(columna2))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna2), diccionarioFilter1)
@@ -292,7 +335,7 @@ def ia():
     analisisYescritura(filter1)
     diccionarioFilter1.pop(0)
     diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna3), indiceDeCorrectas(columna3),
-                                                      filter1,indiceDeGris(columna3))
+                                                      filter1, indiceDeGris(columna3))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna3), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna3), diccionarioFilter1)
     random.shuffle(diccionarioFilter1)
@@ -302,7 +345,7 @@ def ia():
     analisisYescritura(filter1)
     diccionarioFilter1.pop(0)
     diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna4), indiceDeCorrectas(columna4),
-                                                      filter1,indiceDeGris(columna4))
+                                                      filter1, indiceDeGris(columna4))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna4), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna4), diccionarioFilter1)
     random.shuffle(diccionarioFilter1)
@@ -312,7 +355,7 @@ def ia():
     analisisYescritura(filter1)
     diccionarioFilter1.pop(0)
     diccionarioFilter1 = filtradoDeLetrasInexistentes(listadic, indiceDeAmarilla(columna5), indiceDeCorrectas(columna5),
-                                                      filter1,indiceDeGris(columna5))
+                                                      filter1, indiceDeGris(columna5))
     diccionarioFilter1 = filtradoDePosicion(filter1, indiceDeCorrectas(columna5), diccionarioFilter1)
     diccionarioFilter1 = filtradoDeExistencia(filter1, indiceDeAmarilla(columna5), diccionarioFilter1)
     random.shuffle(diccionarioFilter1)
@@ -321,10 +364,8 @@ def ia():
     filter1 = diccionarioFilter1[0]
     analisisYescritura(filter1)
 
+
 try:
     ia()
-    Author = 'Naim Cheddi'
-    driver.quit()
 except IndexError:
-    print('No hay mas columnas por tanto ha ganado')
-    driver.quit()
+    ia()
